@@ -4,63 +4,1074 @@
     <meta charset="UTF-8">
     <meta name="verify-admiral" content="6234e0fde2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Финансовые рынки - Аналитика и обзоры</title>
+    <title>FinVision - Аналитика финансовых рынков</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #2962ff;
+            --accent: #00c853;
+            --danger: #ff1744;
+            --light: #f5f7ff;
+            --dark: #0d1440;
+            --gray: #8c9eff;
+            --text: #212121;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7ff 0%, #e3f2fd 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2300c853" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,170.7C960,160,1056,160,1152,170.7C1248,181,1344,203,1392,213.3L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center bottom;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            color: var(--accent);
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 20, 64, 0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
         }
-        .header {
-            background: #2c3e50;
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .btn-large {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
             color: white;
-            padding: 20px;
+        }
+        
+        .btn-accent:hover {
+            background: #00b248;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* Market Data */
+        .market-data {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--light) 0%, #e8eaf6 100%);
+        }
+        
+        .market-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .market-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .market-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .market-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .market-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .market-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .market-name {
+            font-weight: 500;
+        }
+        
+        .market-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .market-change {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .positive {
+            background: rgba(0, 200, 83, 0.15);
+            color: var(--accent);
+        }
+        
+        .negative {
+            background: rgba(255, 23, 68, 0.15);
+            color: var(--danger);
+        }
+        
+        /* Articles Section */
+        .articles {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .articles-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .article-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .article-content {
+            padding: 25px;
+        }
+        
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .article-excerpt {
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
             text-align: center;
         }
-        .post {
-            margin: 30px 0;
-            padding: 20px;
-            border-left: 4px solid #3498db;
-            background: #f8f9fa;
+        
+        .newsletter h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
         }
-        .footer {
+        
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 6px 0 0 6px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .newsletter-button:hover {
+            background: #00b248;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            background: #ecf0f1;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .newsletter-input, .newsletter-button {
+                width: 100%;
+                border-radius: 6px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Финансовые рынки и инвестиции</h1>
-        <p>Аналитика Forex, криптовалют, обзоры брокеров</p>
-    </div>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="logo-text">Fin<span>Vision</span></div>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <div class="stat-value" id="btc-price">$42,150</div>
+                    <div class="stat-label">Bitcoin</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="sp500-price">4,650</div>
+                    <div class="stat-label">S&P 500</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="gold-price">$2,025</div>
+                    <div class="stat-label">Gold</div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <div class="post">
-        <h2>Анализ рынка Forex</h2>
-        <p>Текущая ситуация на валютном рынке и перспективы основных пар...</p>
-        <p><strong>Дата:</strong> 15 декабря 2024</p>
-    </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Главная</a></li>
+                <li><a href="#">Рынки</a></li>
+                <li><a href="#">Аналитика</a></li>
+                <li><a href="#">Криптовалюты</a></li>
+                <li><a href="#">Обучение</a></li>
+                <li><a href="#">О нас</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Войти</button>
+                <button class="btn btn-primary">Регистрация</button>
+            </div>
+        </div>
+    </nav>
 
-    <div class="post">
-        <h2>Криптовалюты: обзор рынка</h2>
-        <p>Динамика Bitcoin и альткоинов, ключевые уровни и потенциал роста...</p>
-        <p><strong>Дата:</strong> 14 декабря 2024</p>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Профессиональная аналитика финансовых рынков</h1>
+            <p>Экспертные обзоры, торговые идеи и обучающие материалы для успешного инвестирования на рынках Forex, акций и криптовалют</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary btn-large">Начать анализ</button>
+                <button class="btn btn-accent btn-large">Открыть счет</button>
+            </div>
+        </div>
+    </section>
 
-    <div class="post">
-        <h2>Стратегии инвестирования</h2>
-        <p>Как начать инвестировать с минимальным капиталом и снизить риски...</p>
-        <p><strong>Дата:</strong> 13 декабря 2024</p>
-    </div>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Почему выбирают нас</h2>
+                <p>Мы предоставляем комплексные решения для трейдеров и инвесторов любого уровня</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Глубокая аналитика</h3>
+                    <p>Технический и фундаментальный анализ рынков с детальными прогнозами</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Мгновенные сигналы</h3>
+                    <p>Получайте торговые сигналы в реальном времени с высокой точностью</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Профессиональное обучение</h3>
+                    <p>Курсы и вебинары от опытных трейдеров с многолетней практикой</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="footer">
-        <p>© 2025 Финансовые рынки. Все права защищены.</p>
-        <p>Контакты: egorbuldakovgo@gmail.com</p>
-    </div>
+    <!-- Market Data Section -->
+    <section class="market-data">
+        <div class="container">
+            <div class="section-title">
+                <h2>Рыночные данные</h2>
+                <p>Актуальные котировки и динамика основных финансовых инструментов</p>
+            </div>
+            <div class="market-tabs">
+                <div class="tab active" data-tab="forex">Форекс</div>
+                <div class="tab" data-tab="crypto">Криптовалюты</div>
+                <div class="tab" data-tab="stocks">Акции</div>
+                <div class="tab" data-tab="commodities">Сырьевые товары</div>
+            </div>
+            <div class="market-content">
+                <div class="market-grid" id="market-container">
+                    <!-- Forex data will be loaded here by default -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles">
+        <div class="container">
+            <div class="articles-header">
+                <div class="section-title">
+                    <h2>Последние публикации</h2>
+                    <p>Актуальные аналитические материалы и рыночные обзоры</p>
+                </div>
+                <button class="btn btn-outline">Все статьи</button>
+            </div>
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                        <span class="article-category">Форекс</span>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 15 ноября 2025</span>
+                            <span><i class="far fa-clock"></i> 5 мин чтения</span>
+                        </div>
+                        <h3 class="article-title">Анализ EUR/USD: перспективы на неделю</h3>
+                        <p class="article-excerpt">Ключевые уровни поддержки и сопротивления, факторы влияния и торговые идеи по основной валютной паре.</p>
+                        <div class="article-footer">
+                            <div class="article-author">
+                                <div class="author-avatar">ЕБ</div>
+                                <span>Егор Булдаков</span>
+                            </div>
+                            <a href="#" class="read-more">Читать →</a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image" style="background-image: url('btk.webp')">
+                        <span class="article-category">Криптовалюты</span>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 14 июня 2025</span>
+                            <span><i class="far fa-clock"></i> 7 мин чтения</span>
+                        </div>
+                        <h3 class="article-title">Bitcoin: обновление анализа и цели</h3>
+                        <p class="article-excerpt">Технический анализ BTC/USD, ключевые уровни и потенциал движения в преддверии халвинга.</p>
+                        <div class="article-footer">
+                            <div class="article-author">
+                                <div class="author-avatar">ЕБ</div>
+                                <span>Егор Булдаков</span>
+                            </div>
+                            <a href="#" class="read-more">Читать →</a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')">
+                        <span class="article-category">Инвестиции</span>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 13 июля 2025</span>
+                            <span><i class="far fa-clock"></i> 10 мин чтения</span>
+                        </div>
+                        <h3 class="article-title">Стратегии диверсификации портфеля</h3>
+                        <p class="article-excerpt">Как правильно распределить активы для минимизации рисков и максимизации доходности.</p>
+                        <div class="article-footer">
+                            <div class="article-author">
+                                <div class="author-avatar">ЕБ</div>
+                                <span>Егор Булдаков</span>
+                            </div>
+                            <a href="#" class="read-more">Читать →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Подпишитесь на аналитическую рассылку</h2>
+            <p>Получайте ежедневные обзоры рынков, торговые идеи и эксклюзивные материалы прямо на вашу почту</p>
+            <form class="newsletter-form" id="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Ваш email" required>
+                <button type="submit" class="newsletter-button">Подписаться</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FinVision</h3>
+                    <p>Профессиональная аналитика финансовых рынков. Предоставляем экспертные обзоры, торговые идеи и обучающие материалы.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Разделы</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Форекс аналитика</a></li>
+                        <li><a href="#">Криптовалюты</a></li>
+                        <li><a href="#">Акции и индексы</a></li>
+                        <li><a href="#">Товарные рынки</a></li>
+                        <li><a href="#">Экономический календарь</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Ресурсы</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Обучение трейдингу</a></li>
+                        <li><a href="#">Торговые стратегии</a></li>
+                        <li><a href="#">Брокеры и платформы</a></li>
+                        <li><a href="#">Глоссарий терминов</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> egorbuldakovgo@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +7 (982) 833-07-63</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Ижевск, Россия</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FinVision. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Market data
+        const marketData = {
+            forex: [
+                { name: 'EUR/USD', price: '1.0954', change: '+0.24%', direction: 'positive' },
+                { name: 'GBP/USD', price: '1.2750', change: '+0.15%', direction: 'positive' },
+                { name: 'USD/JPY', price: '142.30', change: '-0.12%', direction: 'negative' },
+                { name: 'USD/CHF', price: '0.8685', change: '-0.08%', direction: 'negative' },
+                { name: 'AUD/USD', price: '0.6720', change: '+0.31%', direction: 'positive' },
+                { name: 'USD/CAD', price: '1.3380', change: '-0.05%', direction: 'negative' }
+            ],
+            crypto: [
+                { name: 'Bitcoin', price: '$42,150', change: '+1.8%', direction: 'positive' },
+                { name: 'Ethereum', price: '$2,250', change: '+2.3%', direction: 'positive' },
+                { name: 'BNB', price: '$310', change: '-0.5%', direction: 'negative' },
+                { name: 'XRP', price: '$0.62', change: '+0.8%', direction: 'positive' },
+                { name: 'Cardano', price: '$0.45', change: '+1.2%', direction: 'positive' },
+                { name: 'Solana', price: '$75', change: '+3.1%', direction: 'positive' }
+            ],
+            stocks: [
+                { name: 'S&P 500', price: '4,650', change: '-0.3%', direction: 'negative' },
+                { name: 'Dow Jones', price: '36,200', change: '+0.2%', direction: 'positive' },
+                { name: 'NASDAQ', price: '14,520', change: '-0.5%', direction: 'negative' },
+                { name: 'Apple', price: '$195', change: '+0.8%', direction: 'positive' },
+                { name: 'Tesla', price: '$245', change: '-1.2%', direction: 'negative' },
+                { name: 'Amazon', price: '$148', change: '+0.5%', direction: 'positive' }
+            ],
+            commodities: [
+                { name: 'Gold', price: '$2,025', change: '+0.5%', direction: 'positive' },
+                { name: 'Silver', price: '$24.10', change: '+0.8%', direction: 'positive' },
+                { name: 'Oil (Brent)', price: '$78.50', change: '-1.2%', direction: 'negative' },
+                { name: 'Oil (WTI)', price: '$73.80', change: '-1.5%', direction: 'negative' },
+                { name: 'Natural Gas', price: '$2.65', change: '+2.1%', direction: 'positive' },
+                { name: 'Copper', price: '$3.85', change: '-0.3%', direction: 'negative' }
+            ]
+        };
+
+        // Function to render market data
+        function renderMarketData(category) {
+            const container = document.getElementById('market-container');
+            container.innerHTML = '';
+            
+            marketData[category].forEach(item => {
+                const marketItem = document.createElement('div');
+                marketItem.className = 'market-item';
+                marketItem.innerHTML = `
+                    <div class="market-info">
+                        <div class="market-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="market-name">${item.name}</div>
+                    </div>
+                    <div class="market-details">
+                        <div class="market-price">${item.price}</div>
+                        <div class="market-change ${item.direction}">${item.change}</div>
+                    </div>
+                `;
+                container.appendChild(marketItem);
+            });
+        }
+
+        // Initialize with forex data
+        renderMarketData('forex');
+
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Render corresponding market data
+                const category = this.getAttribute('data-tab');
+                renderMarketData(category);
+            });
+        });
+
+        // Update header prices periodically
+        function updateHeaderPrices() {
+            const btcElement = document.getElementById('btc-price');
+            const sp500Element = document.getElementById('sp500-price');
+            const goldElement = document.getElementById('gold-price');
+            
+            // Generate random changes
+            const btcChange = (Math.random() * 2 - 1).toFixed(2);
+            const sp500Change = (Math.random() * 1 - 0.5).toFixed(2);
+            const goldChange = (Math.random() * 1 - 0.5).toFixed(2);
+            
+            // Update prices with simulated changes
+            const btcPrice = parseFloat(btcElement.textContent.replace('$', '').replace(',', ''));
+            const sp500Price = parseFloat(sp500Element.textContent.replace(',', ''));
+            const goldPrice = parseFloat(goldElement.textContent.replace('$', '').replace(',', ''));
+            
+            btcElement.textContent = '$' + (btcPrice * (1 + btcChange/100)).toFixed(0);
+            sp500Element.textContent = (sp500Price * (1 + sp500Change/100)).toFixed(0);
+            goldElement.textContent = '$' + (goldPrice * (1 + goldChange/100)).toFixed(0);
+        }
+
+        // Update prices every 5 seconds
+        setInterval(updateHeaderPrices, 5000);
+
+        // Newsletter form submission
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email && email.includes('@')) {
+                alert('Спасибо за подписку! Проверьте вашу почту для подтверждения.');
+                this.reset();
+            } else {
+                alert('Пожалуйста, введите корректный email адрес');
+            }
+        });
+
+        // Navigation active state
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
-
 </html>
