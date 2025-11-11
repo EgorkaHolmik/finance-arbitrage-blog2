@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="verify-admiral" content="6234e0fde2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinVision - Аналитика финансовых рынков</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -646,6 +645,140 @@
             color: #aaa;
         }
         
+        /* Auth Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--danger);
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .form-input {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .forgot-password {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        
+        .form-submit:hover {
+            background: var(--dark);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .auth-switch a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .header-content {
@@ -687,6 +820,10 @@
             .newsletter-input, .newsletter-button {
                 width: 100%;
                 border-radius: 6px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -730,8 +867,8 @@
                 <li><a href="#">О нас</a></li>
             </ul>
             <div class="auth-buttons">
-                <button class="btn btn-outline">Войти</button>
-                <button class="btn btn-primary">Регистрация</button>
+                <button class="btn btn-outline" id="login-btn">Войти</button>
+                <button class="btn btn-primary" id="register-btn">Регистрация</button>
             </div>
         </div>
     </nav>
@@ -819,7 +956,7 @@
                     </div>
                     <div class="article-content">
                         <div class="article-meta">
-                            <span><i class="far fa-calendar"></i> 15 ноября 2025</span>
+                            <span><i class="far fa-calendar"></i> 15 декабря 2024</span>
                             <span><i class="far fa-clock"></i> 5 мин чтения</span>
                         </div>
                         <h3 class="article-title">Анализ EUR/USD: перспективы на неделю</h3>
@@ -840,7 +977,7 @@
                     </div>
                     <div class="article-content">
                         <div class="article-meta">
-                            <span><i class="far fa-calendar"></i> 14 июня 2025</span>
+                            <span><i class="far fa-calendar"></i> 14 декабря 2024</span>
                             <span><i class="far fa-clock"></i> 7 мин чтения</span>
                         </div>
                         <h3 class="article-title">Bitcoin: обновление анализа и цели</h3>
@@ -861,7 +998,7 @@
                     </div>
                     <div class="article-content">
                         <div class="article-meta">
-                            <span><i class="far fa-calendar"></i> 13 июля 2025</span>
+                            <span><i class="far fa-calendar"></i> 13 декабря 2024</span>
                             <span><i class="far fa-clock"></i> 10 мин чтения</span>
                         </div>
                         <h3 class="article-title">Стратегии диверсификации портфеля</h3>
@@ -932,8 +1069,8 @@
                     <h3>Контакты</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-envelope"></i> egorbuldakovgo@gmail.com</li>
-                        <li><i class="fas fa-phone"></i> +7 (982) 833-07-63</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Ижевск, Россия</li>
+                        <li><i class="fas fa-phone"></i> +7 (XXX) XXX-XX-XX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, Россия</li>
                     </ul>
                 </div>
             </div>
@@ -943,6 +1080,71 @@
             </div>
         </div>
     </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="login-close">&times;</button>
+            <h2 class="modal-title">Вход в аккаунт</h2>
+            <form class="auth-form" id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="login-email">Email</label>
+                    <input type="email" class="form-input" id="login-email" placeholder="Ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Пароль</label>
+                    <input type="password" class="form-input" id="login-password" placeholder="Ваш пароль" required>
+                </div>
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Запомнить меня</label>
+                    </div>
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </div>
+                <button type="submit" class="form-submit">Войти</button>
+            </form>
+            <div class="auth-switch">
+                Нет аккаунта? <a href="#" id="switch-to-register">Зарегистрироваться</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="register-close">&times;</button>
+            <h2 class="modal-title">Регистрация</h2>
+            <form class="auth-form" id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="register-name">Имя</label>
+                    <input type="text" class="form-input" id="register-name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="register-email">Email</label>
+                    <input type="email" class="form-input" id="register-email" placeholder="Ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="register-password">Пароль</label>
+                    <input type="password" class="form-input" id="register-password" placeholder="Придумайте пароль" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="register-confirm">Подтверждение пароля</label>
+                    <input type="password" class="form-input" id="register-confirm" placeholder="Повторите пароль" required>
+                </div>
+                <div class="form-group">
+                    <div class="remember-me">
+                        <input type="checkbox" id="agree-terms" required>
+                        <label for="agree-terms">Я согласен с <a href="#">условиями использования</a></label>
+                    </div>
+                </div>
+                <button type="submit" class="form-submit">Зарегистрироваться</button>
+            </form>
+            <div class="auth-switch">
+                Уже есть аккаунт? <a href="#" id="switch-to-login">Войти</a>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Market data
@@ -1071,6 +1273,97 @@
                 // Add active class to clicked link
                 this.classList.add('active');
             });
+        });
+
+        // Auth Modal Functionality
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const loginClose = document.getElementById('login-close');
+        const registerClose = document.getElementById('register-close');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const switchToLogin = document.getElementById('switch-to-login');
+
+        // Open login modal
+        loginBtn.addEventListener('click', function() {
+            loginModal.style.display = 'flex';
+        });
+
+        // Open register modal
+        registerBtn.addEventListener('click', function() {
+            registerModal.style.display = 'flex';
+        });
+
+        // Close modals
+        loginClose.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+
+        registerClose.addEventListener('click', function() {
+            registerModal.style.display = 'none';
+        });
+
+        // Switch between login and register
+        switchToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+        });
+
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Simple validation
+            if (email && password) {
+                alert('Вход выполнен успешно!');
+                loginModal.style.display = 'none';
+                this.reset();
+            } else {
+                alert('Пожалуйста, заполните все поля');
+            }
+        });
+
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+            const agree = document.getElementById('agree-terms').checked;
+            
+            // Simple validation
+            if (name && email && password && confirm && agree) {
+                if (password !== confirm) {
+                    alert('Пароли не совпадают');
+                    return;
+                }
+                
+                alert('Регистрация прошла успешно! Проверьте вашу почту для подтверждения.');
+                registerModal.style.display = 'none';
+                this.reset();
+            } else {
+                alert('Пожалуйста, заполните все поля и согласитесь с условиями');
+            }
         });
     </script>
 </body>
