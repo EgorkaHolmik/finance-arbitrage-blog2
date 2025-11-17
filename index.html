@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-     <meta name="verify-admitad" content="6233e0fde2" />
+    <meta name="verify-admitad" content="6233e0fde2" />
+    <meta name="verify-admitad" content="6233e0fde2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinVision - Аналитика финансовых рынков</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -515,6 +516,102 @@
             font-size: 0.8rem;
         }
         
+        /* Affiliate Section */
+        .affiliate {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .affiliate-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .affiliate-header {
+            background: #ff4747;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .affiliate-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .affiliate-body {
+            padding: 30px;
+        }
+        
+        .affiliate-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .affiliate-link {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .link-box {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .copy-btn:hover {
+            background: var(--dark);
+        }
+        
+        .affiliate-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
         /* Newsletter */
         .newsletter {
             padding: 80px 0;
@@ -827,6 +924,10 @@
             .modal-content {
                 padding: 30px 20px;
             }
+            
+            .affiliate-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -866,6 +967,7 @@
                 <li><a href="#">Аналитика</a></li>
                 <li><a href="#">Криптовалюты</a></li>
                 <li><a href="#">Обучение</a></li>
+                <li><a href="#">Партнерка</a></li>
                 <li><a href="#">О нас</a></li>
             </ul>
             <div class="auth-buttons">
@@ -941,6 +1043,52 @@
         </div>
     </section>
 
+    <!-- Affiliate Section -->
+    <section class="affiliate">
+        <div class="container">
+            <div class="section-title">
+                <h2>Партнерская программа</h2>
+                <p>Зарабатывайте с нами, рекомендуя наши услуги и продукты</p>
+            </div>
+            <div class="affiliate-card">
+                <div class="affiliate-header">
+                    <h2>AliExpress</h2>
+                    <p>Получите партнерскую ссылку</p>
+                </div>
+                <div class="affiliate-body">
+                    <div class="affiliate-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Вставить ссылку</h3>
+                            <p>Вставьте ссылку на страницу товара или акции</p>
+                        </div>
+                    </div>
+                    <div class="affiliate-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Выбрать лендинг</h3>
+                            <p>Выберите подходящую посадочную страницу для вашей аудитории</p>
+                        </div>
+                    </div>
+                    
+                    <div class="affiliate-link">
+                        <h3>Скопируйте ссылку</h3>
+                        <div class="link-box" id="affiliate-link">
+                            https://dhwnh.com/g/vv3q4oey1v623ae0fde2b6d178101
+                        </div>
+                        <button class="copy-btn" id="copy-btn">Копировать ссылку</button>
+                        <p>Используйте эту ссылку на своей площадке</p>
+                    </div>
+                    
+                    <div class="affiliate-actions">
+                        <button class="btn btn-primary">Готово</button>
+                        <button class="btn btn-outline">Отменить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Articles Section -->
     <section class="articles">
         <div class="container">
@@ -974,7 +1122,7 @@
                 </article>
                 
                 <article class="article-card">
-                    <div class="article-image" style="background-image: url('btk\ —\ копия.webp')">
+                    <div class="article-image" style="background-image: url('btk — копия.webp')">
                         <span class="article-category">Криптовалюты</span>
                     </div>
                     <div class="article-content">
@@ -1274,6 +1422,24 @@
                 
                 // Add active class to clicked link
                 this.classList.add('active');
+            });
+        });
+
+        // Copy affiliate link functionality
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const linkElement = document.getElementById('affiliate-link');
+            const linkText = linkElement.textContent;
+            
+            navigator.clipboard.writeText(linkText).then(() => {
+                const originalText = this.textContent;
+                this.textContent = 'Скопировано!';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Ошибка копирования: ', err);
+                alert('Не удалось скопировать ссылку. Скопируйте вручную.');
             });
         });
 
